@@ -1,5 +1,7 @@
-SELECT po.order_date,
-       CONCAT(p.name, ' (age: ', p.age, ')') AS person_info
-FROM person_order po
-NATURAL JOIN person p
-ORDER BY po.order_date, person_info;
+SELECT order_date, CONCAT(person.name, ' (age:', person.age, ')')
+	AS person_information
+FROM person
+NATURAL JOIN
+	(SELECT id AS order_id, order_date, person_id AS id
+	FROM person_order) person_order
+ORDER BY order_date, person_information;
